@@ -4,22 +4,14 @@
   gap: 20px;
 }
 
-.restaurant-border {
+.kfc-border {
   border: 1px solid #ccc;
   padding: 10px;
   width: 250px;
 }
 
-.restaurant-img {
+.kfc-img {
   width: 100%;
   height: 150px;
   object-fit: cover;
-}
-
-.restaurant-title {
-  color: black;
-}
-
-.restaurant-description {
-  color: black;
 }
