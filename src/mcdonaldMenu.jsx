@@ -31,7 +31,7 @@ const McdonaldMenu = () => {
       {loading ? (
         <p>Loading menu...</p>
       ) : (
-        <div className="container">
+        <div className="mc-container">
           {menu.length > 0 ? (
             menu.map((dish) => (
               <div key={dish.id} className="mcdonald-border">

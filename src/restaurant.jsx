@@ -42,7 +42,7 @@ const Restaurant = () => {
   return (
     <div>
       <h1>RESTAURANTS</h1>
-      <div className="container">
+      <div className="res-container">
         {restaurants.map((restaurant) => (
           <div key={restaurant.id} className="restaurant-border">
             <img

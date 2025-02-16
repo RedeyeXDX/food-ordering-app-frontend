@@ -33,7 +33,7 @@ const PizzaHutMenu = () => {
       {loading ? (
         <p>Loading menu...</p>
       ) : (
-        <div className="container">
+        <div className="pizza-container">
           {menu.length > 0 ? (
             menu.map((dish) => (
               <div key={dish.id} className="Pizza-border">
