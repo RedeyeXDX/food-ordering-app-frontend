@@ -12,7 +12,6 @@
   align-items: center;
   margin: auto;
   margin-top: none;
-  background: white;
   padding-bottom: 30px;
   width: 600px;
 }
@@ -20,13 +19,14 @@
 .input {
   display: flex;
   align-items: center;
-  margin: auto;
+  margin: 5px;
   width: 480px;
   height: 60px;
-  background: #bfbebe00;
+  background: rgb(199, 197, 197);
   border-radius: 6px;
   border: 2px solid;
   font-size: 20px;
+  color: black;
 }
 
 input::placeholder {
@@ -47,6 +47,7 @@ input::placeholder {
   font-size: 19px;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .header {
@@ -59,4 +60,8 @@ input::placeholder {
 .img-div {
   margin: 0px;
   padding: 0px;
+}
+
+.passage {
+  color: black;
 }

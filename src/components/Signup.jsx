@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./css/signin.css";
+import ".././css/signin.css";
 import logo from "../img/food-truck-event-logo-food-fair-logo_185190-83.jpg";
 
 const Signup = () => {
@@ -59,7 +59,7 @@ const Signup = () => {
         <button type="submit" onClick={handleSubmit} className="submit">
           Signup
         </button>
-        <p>
+        <p className="passage">
           Already have an account? <a href="/Login">Login</a>
         </p>
       </div>

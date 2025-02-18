@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./css/Restaurant.css";
-import { useNavigate } from "react-router-dom";
+import ".././css/Restaurant.css";
+import { useNavigate, Link } from "react-router-dom";
+import logo from "../img/food-truck-event-logo-food-fair-logo_185190-83.jpg";
+import { FaShoppingCart } from "react-icons/fa";
 
-const Restaurant = () => {
+const Restaurant = ({ cartCount }) => {
   const [restaurants, setRestaurant] = useState([]);
   const navigate = useNavigate();
 
@@ -14,7 +16,6 @@ const Restaurant = () => {
   const getRestaurant = async () => {
     try {
       const result = await axios.get("http://localhost:8080/Restaurant");
-      console.log("Restaurant data received:", result.data);
       setRestaurant(result.data);
     } catch (error) {
       console.error("Error getting data:", error);
@@ -40,7 +41,16 @@ const Restaurant = () => {
   };
 
   return (
-    <div>
+    <>
+      <nav className="navbar">
+        <Link to="/Restaurant">
+          <img src={logo} alt="logo" className="logo-res" />
+        </Link>
+        <Link to="/Cart">
+          <FaShoppingCart className="cart" />
+          {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+        </Link>
+      </nav>
       <h1>RESTAURANTS</h1>
       <div className="res-container">
         {restaurants.map((restaurant) => (
@@ -57,7 +67,7 @@ const Restaurant = () => {
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
