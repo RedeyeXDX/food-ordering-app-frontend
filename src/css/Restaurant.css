@@ -27,6 +27,10 @@
   border-radius: 10px;
 }
 
+.restaurant-img:hover {
+  opacity: 0.5;
+}
+
 .restaurant-title {
   color: black;
 }

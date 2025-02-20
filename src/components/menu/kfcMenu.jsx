@@ -6,20 +6,21 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../img/food-truck-event-logo-food-fair-logo_185190-83.jpg";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../CartContext";
+import { motion, useAnimation } from "framer-motion";
 
 const KfcMenu = () => {
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
-  const { cartCount, addToCart } = useCart();
+  const { cartCount, addToCart, removeFromAllCart } = useCart();
+  const cartControls = useAnimation();
 
   useEffect(() => {
     getMenu();
-    getUserId(); // Fetch user ID from token
+    getUserId();
   }, []);
 
-  // Fetch the menu from backend
   const getMenu = async () => {
     try {
       const result = await axios.get(
@@ -49,12 +50,14 @@ const KfcMenu = () => {
       if (decoded.exp < currentTime) {
         console.log("Token expired. Redirecting to login...");
         localStorage.removeItem("token");
+        removeFromAllCart();
         navigate("/Login");
         return;
       }
       setUserId(decoded.id);
     } catch (error) {
       console.error("Error decoding token:", error);
+      removeFromAllCart();
       navigate("/Login");
     }
   };
@@ -79,6 +82,10 @@ const KfcMenu = () => {
         }
       );
       addToCart(dishId);
+      await cartControls.start({
+        rotate: [0, -20, 20, -10, 10, 0],
+        transition: { duration: 0.6 },
+      });
     } catch (error) {
       console.error("❌ Error adding to cart:", error);
     }
@@ -91,8 +98,10 @@ const KfcMenu = () => {
           <img src={logo} alt="logo" className="logo-res" />
         </Link>
         <Link to="/Cart">
-          <FaShoppingCart className="cart" />
-          {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          <motion.div animate={cartControls} whileTap={{ scale: 0.9 }}>
+            <FaShoppingCart className="cart" />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </motion.div>
         </Link>
       </nav>
       <div>
@@ -105,15 +114,22 @@ const KfcMenu = () => {
             {menu.length > 0 ? (
               menu.map((dish) => (
                 <div key={dish.id} className="kfc-border">
-                  <img
-                    src={dish.img_url}
-                    className="kfc-img"
-                    alt={dish.food_name}
-                  />
-                  <h3>{dish.food_name}</h3>
-                  <button onClick={() => handleAddtoCart(dish.id)}>
-                    Add to Cart
-                  </button>
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <img
+                      src={dish.img_url}
+                      className="kfc-img"
+                      alt={dish.food_name}
+                    />
+                    <h3>{dish.food_name}</h3>
+                    <button onClick={() => handleAddtoCart(dish.id)}>
+                      Add to Cart
+                    </button>
+                  </motion.div>
                 </div>
               ))
             ) : (

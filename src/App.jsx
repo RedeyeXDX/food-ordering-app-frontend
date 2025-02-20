@@ -6,6 +6,7 @@ import PizzaHutMenu from "./components/menu/pizzaHutMenu";
 import McdonaldMenu from "./components/menu/mcdonaldMenu";
 import Login from "./components/login";
 import Cart from "./components/cart";
+import Orders from "./components/Orders";
 import { CartProvider } from "./components/CartContext";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/Kfc" element={<KfcMenu />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Cart" element={<Cart />} />
+            <Route path="/Order/:orderId" element={<Orders />} />
             <Route path="*" element={<Navigate to="/Login" />} />
           </Routes>
         </BrowserRouter>

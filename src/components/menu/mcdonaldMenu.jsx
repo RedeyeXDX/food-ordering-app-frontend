@@ -6,13 +6,15 @@ import { FaShoppingCart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useCart } from "../CartContext";
+import { motion, useAnimation } from "framer-motion";
 
 const McdonaldMenu = () => {
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userId, setUserId] = useState(null);
   const navigate = useNavigate();
-  const { cartCount, addToCart } = useCart();
+  const { cartCount, addToCart, removeFromAllCart } = useCart();
+  const cartControls = useAnimation();
 
   useEffect(() => {
     getMenu();
@@ -48,12 +50,14 @@ const McdonaldMenu = () => {
       if (decoded.exp < currentTime) {
         console.log("Token expired. Redirecting to login...");
         localStorage.removeItem("token");
+        removeFromAllCart();
         navigate("/Login");
         return;
       }
       setUserId(decoded.id);
     } catch (error) {
       console.error("Error decoding token:", error);
+      removeFromAllCart();
       navigate("/Login");
     }
   };
@@ -78,6 +82,10 @@ const McdonaldMenu = () => {
         }
       );
       addToCart(dishId);
+      await cartControls.start({
+        rotate: [0, -20, 20, -10, 10, 0],
+        transition: { duration: 0.6 },
+      });
     } catch (error) {
       console.error("❌ Error adding to cart:", error);
     }
@@ -90,8 +98,10 @@ const McdonaldMenu = () => {
           <img src={logo} alt="logo" className="logo-res" />
         </Link>
         <Link to="/Cart">
-          <FaShoppingCart className="cart" />
-          {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          <motion.div animate={cartControls} whileTap={{ scale: 0.9 }}>
+            <FaShoppingCart className="cart" />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </motion.div>
         </Link>
       </nav>
       <h1>Mcdonald Menu</h1>
@@ -102,11 +112,18 @@ const McdonaldMenu = () => {
           {menu.length > 0 ? (
             menu.map((dish) => (
               <div key={dish.id} className="mcdonald-border">
-                <img src={dish.img_url} className="mcdonald-img" />
-                <h3>{dish.food_name}</h3>
-                <button onClick={() => handleAddtoCart(dish.id)}>
-                  Add to Cart
-                </button>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img src={dish.img_url} className="mcdonald-img" />
+                  <h3>{dish.food_name}</h3>
+                  <button onClick={() => handleAddtoCart(dish.id)}>
+                    Add to Cart
+                  </button>
+                </motion.div>
               </div>
             ))
           ) : (

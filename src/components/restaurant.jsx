@@ -4,10 +4,13 @@ import ".././css/Restaurant.css";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../img/food-truck-event-logo-food-fair-logo_185190-83.jpg";
 import { FaShoppingCart } from "react-icons/fa";
+import { useCart } from "./CartContext";
+import { motion } from "framer-motion";
 
-const Restaurant = ({ cartCount }) => {
+const Restaurant = () => {
   const [restaurants, setRestaurant] = useState([]);
   const navigate = useNavigate();
+  const { cartCount } = useCart();
 
   useEffect(() => {
     getRestaurant();
@@ -55,15 +58,24 @@ const Restaurant = ({ cartCount }) => {
       <div className="res-container">
         {restaurants.map((restaurant) => (
           <div key={restaurant.id} className="restaurant-border">
-            <img
-              className="restaurant-img"
-              src={restaurant.imageUrl}
-              alt={restaurant.title}
-              onClick={() => handleNavigate(restaurant.title)}
-              style={{ cursor: "pointer" }}
-            />
-            <h3 className="restaurant-title">{restaurant.title}</h3>
-            <p className="restaurant-description">{restaurant.description}</p>
+            <motion.div
+              className="restaurant-card"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ rotate: "0deg" }}
+              animate={{ rotate: "360deg" }}
+              transition={{ duration: 1, ease: "backInOut" }}
+            >
+              <img
+                className="restaurant-img"
+                src={restaurant.imageUrl}
+                alt={restaurant.title}
+                onClick={() => handleNavigate(restaurant.title)}
+                style={{ cursor: "pointer" }}
+              />
+              <h3 className="restaurant-title">{restaurant.title}</h3>
+              <p className="restaurant-description">{restaurant.description}</p>
+            </motion.div>
           </div>
         ))}
       </div>

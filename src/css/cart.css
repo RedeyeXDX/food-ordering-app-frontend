@@ -50,6 +50,11 @@ button {
 .remove-btn {
   background: red;
   color: white;
+  margin-top: 10px;
+}
+
+.remove-btn:hover {
+  background-color: rgba(220, 53, 69, 0.8);
 }
 
 .navbar {
@@ -67,4 +72,41 @@ button {
   color: black;
   font-size: 50px;
   margin-right: 70px;
+}
+
+.checkout-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkout-btn:hover {
+  background-color: #218838;
+}
+
+.checkout-btn:disabled {
+  background-color: #c3e6cb;
+  cursor: not-allowed;
+}
+
+.clear-cart-btn {
+  background-color: #dc3545;
+  color: white;
+  padding: 12px 24px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-cart-btn:hover {
+  background-color: #c82333;
 }

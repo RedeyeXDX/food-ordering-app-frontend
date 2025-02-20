@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import logo from "../img/food-truck-event-logo-food-fair-logo_185190-83.jpg";
 import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "./CartContext";
+import { db, collection, addDoc, serverTimestamp } from "../firebase";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -66,7 +67,6 @@ const Cart = () => {
         { dish_id: dishId, user_id: userId, quantity },
         { headers: { Authorization: `Bearer ${token.trim()}` } }
       );
-      console.log(response);
 
       getCartItems();
     } catch (error) {
@@ -105,6 +105,38 @@ const Cart = () => {
       getCartItems();
     } catch (error) {
       console.error("❌ Error clearing cart:", error);
+    }
+  };
+
+  const checkout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const decoded = jwtDecode(token);
+      const userId = decoded.id;
+
+      if (!cartItems.length) {
+        console.error("Cart is empty!");
+        return;
+      }
+
+      // Create a new order in Firestore
+      const orderRef = await addDoc(collection(db, "Orders"), {
+        userId: userId,
+        status: "Pending", // Default status
+        items: cartItems.map((item) => ({
+          name: item.dish.food_name,
+          quantity: item.quantity,
+          dish: {
+            img_url: item.dish.img_url,
+            food_name: item.dish.food_name,
+          },
+        })),
+        createdAt: new Date(),
+      });
+      removeFromAllCart();
+      navigate(`/Order/${orderRef.id}`);
+    } catch (error) {
+      console.error("❌ Error placing order:", error);
     }
   };
 
@@ -167,6 +199,9 @@ const Cart = () => {
             </div>
             <button onClick={clearCart} className="clear-cart-btn">
               Clear Cart
+            </button>
+            <button onClick={checkout} className="checkout-btn">
+              Checkout
             </button>
           </>
         )}

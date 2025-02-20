@@ -1,0 +1,103 @@
+.order-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px;
+}
+
+.order-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.order-tracking,
+.order-details {
+  flex: 1;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-tracking .step {
+  margin-bottom: 40px;
+}
+
+.order-details .item-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.item-card img {
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.complete-btn,
+.tracking-btn,
+.confirm-btn {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.complete-btn:hover,
+.tracking-btn:hover,
+.confirm-btn:hover {
+  background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+  .order-wrapper {
+    flex-direction: column;
+  }
+}
+
+.progress-container {
+  width: 100%;
+  background-color: #f0f0f0;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+  height: 15px;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0;
+  transition: width 0.5s ease-in-out;
+}
+
+.width-33 {
+  width: 33%;
+}
+
+.width-66 {
+  width: 66%;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #a0a0a0;
+}
+
+.progress-steps .completed {
+  color: #4caf50;
+  font-weight: bold;
+}

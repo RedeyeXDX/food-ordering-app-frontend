@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 // Create Cart Context
 const CartContext = createContext();
@@ -7,30 +7,33 @@ const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(
+    () => parseInt(localStorage.getItem("cartCount")) || 0
+  );
   const [cartItems, setCartItems] = useState([]);
 
-  // Function to add item to cart
+  // 🔥 Save cartCount to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("cartCount", cartCount);
+  }, [cartCount]);
+
   const addToCart = (item) => {
     setCartItems([...cartItems, item]);
-    setCartCount(cartCount + 1);
+    setCartCount((prevCount) => prevCount + 1);
   };
 
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => {
       const updatedCart = prevItems.filter((item) => item.id !== itemId);
-
-      // Ensure cart count doesn't go below zero
       setCartCount((prevCount) => Math.max(prevCount - 1, 0));
-
-      return updatedCart; // ✅ This ensures cartItems updates properly
+      return updatedCart;
     });
   };
 
-  // Function to clear the cart
   const removeFromAllCart = () => {
     setCartCount(0);
     setCartItems([]);
+    localStorage.removeItem("cartCount"); // 🔥 Clear from localStorage too
   };
 
   return (
