@@ -61,3 +61,9 @@
   font-size: 50px;
   margin-right: 70px;
 }
+
+.video-slideshow video {
+  border-radius: 12px;
+  height: 300px;
+  transition: opacity 1s ease-in-out;
+}
