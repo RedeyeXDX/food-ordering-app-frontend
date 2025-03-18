@@ -1,9 +1,19 @@
-# React + Vite
+# food ordering app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- this app is a food ordering concept app that allow user to place order and track there order progression using firebase realtime database
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-# food-ordering-app-frontend
+This app allows users to:
+
+1, place order from the ui to the cart
+2, **Authenticate** themselves to gain access to the app with approved credentials.
+3, **Sign up** allow user to create a account to let them access to the app
+4, allow user to see your order progression in the order page
+5, User also will be log out of the page after token expire
+
+---
+
+## Preview
+
+### Login in page
