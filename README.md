@@ -18,27 +18,27 @@ This app allows users to:
 
 ### Login in page
 
-![Login Page](../frontend/src/img/login-page.png)
+![Login Page](src/img/login-page.png)
 
 ### Sign Up page
 
-![Sign Up Page](../frontend/src/img/signup-page.png)
+![Sign Up Page](src/img/signup-page.png)
 
 ### Restaurants page
 
-![Restaurants Page](../frontend/src/img/restaurants-page.png)
+![Restaurants Page](src/img/restaurants-page.png)
 
 ### Menu Page
 
-![Menu Page](../frontend/src/img/Menu-page.png)
+![Menu Page](src/img/Menu-page.png)
 
 ### Cart Page
 
-![Cart Page](../frontend/src/img/Cart-page.png)
+![Cart Page](src/img/Cart-page.png)
 
 ### Order Page
 
-![Order Page](../frontend/src/img/Order-page.png)
+![Order Page](src/img/Order-page.png)
 
 ---
 
